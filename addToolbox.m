@@ -8,3 +8,4 @@ addpath([toolbox '/export_fig']);
 addpath([toolbox '/fatnavtools']);
 addpath([toolbox '/generaltools']);
 addpath([toolbox '/niftitools']);
+run('./irt/setup.m')
