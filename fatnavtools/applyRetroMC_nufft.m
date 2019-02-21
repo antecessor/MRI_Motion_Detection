@@ -11,23 +11,8 @@ function [gdata, st, newData] = applyRetroMC_nufft(kdata_in, alignMats, alignDim
 % 'fullMatrixDims' are the image dimensions after partial Fourier
 % 'kspaceCentre' are the centre coordinates of k-space
 %
-% Requires Jeffrey Fessler's NUFFT code (downloadable from:
-% http://web.eecs.umich.edu/~fessler/code/ )
-%
-% -- Daniel Gallichan, CIBM, EPFL, Lausanne, July 2014
-% - 31/7/14 - fixed input default definition problem...
-% - 25/6/15 - added option for iterative CG application of the NUFFT
-%             (although haven't yet found it to improve any images...!)
-% - 17/6/16 - recently I added the option to use 'nufft_table_adj_split.m'
-%             which also uses parfor - but this is also a memory hog, so
-%             now I've changed it so that only a negative 'useTable' input
-%             enables this option
-% - 23/8/16 - Added option to change the oversampling factor as the
-%             previous default of 1.375 was indeed faster, but perhaps not
-%             the best compromise with respect to additional aliasing.
-% - 25/8/17 - Added a 'trick' option so that if cgIterations is set to -1
-%             then the NUFFT is not applied. Useful if just trying to get
-%             at the st object.
+
+
 
 if nargin < 10
     oversampFactor = 1.5;

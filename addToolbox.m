@@ -1,14 +1,10 @@
 % add subfolders to the path 
 
-retroMoCoPath = which('addRetroMoCoBoxToPath.m');
-[retroMoCoPath, ~] = fileparts(retroMoCoPath);
+toolbox = which('addToolbox.m');
+[toolbox, ~] = fileparts(toolbox);
 
-addpath(retroMoCoPath);
-addpath([retroMoCoPath '/export_fig']);
-addpath([retroMoCoPath '/fatnavtools']);
-addpath([retroMoCoPath '/generaltools']);
-addpath([retroMoCoPath '/images']);
-addpath([retroMoCoPath '/niftitools']);
-if exist([retroMoCoPath '/mapVBVD_20160905'],'dir')
-    addpath([retroMoCoPath '/mapVBVD_20160905']);
-end
+addpath(toolbox);
+addpath([toolbox '/export_fig']);
+addpath([toolbox '/fatnavtools']);
+addpath([toolbox '/generaltools']);
+addpath([toolbox '/niftitools']);
