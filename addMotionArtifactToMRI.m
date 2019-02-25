@@ -1,4 +1,4 @@
-function image_simMotion=addMotionArtifactToMRI(image_original)
+function [image_simMotion,fitpars]=addMotionArtifactToMRI(image_original,noiseBasePars,maxDisp,maxRot,show)
 %% Normalization and convert to K-Space
 % normalize:
 image_original=double(image_original);
@@ -11,13 +11,13 @@ rng(1); % Set the seed for the random number generator to be able to create repr
 % for Perlin noise, this determines the weights between different harmonics of noise
 % noiseBasePars = 1; %% *really* rough motion
 % noiseBasePars = 5;  %% quite 'rough' motion
-noiseBasePars = 3.^[0:8]; %% smoother motion
-maxDisp = 4; % magnitude of general background noise movement - translations
-maxRot = 4; % magnitude of rotations
+% noiseBasePars = 3.^[0:8]; %% smoother motion
+% maxDisp = 4; % magnitude of general background noise movement - translations
+% maxRot = 4; % magnitude of rotations
 swallowFrequency = 3; % number of swallowing events in scan
-swallowMagnitude = [3 3]; % first is translations, second is rotations 
+swallowMagnitude = [3 3]; % first is translations, second is rotations
 suddenFrequency = 5; % number of sudden movements
-suddenMagnitude = [3 3]; % first is translations, second is rotations 
+suddenMagnitude = [3 3]; % first is translations, second is rotations
 % general background noise movement:
 fitpars = zeros(6,nT);
 fitpars(1,:) = maxDisp*(perlinNoise1D(nT,noiseBasePars).'-.5);
@@ -45,7 +45,7 @@ end
 fitpars = fitpars+suddenTrace;
 
 %%% uncomment these lines to just have one big rotation
-% fitpars = zeros(size(fitpars)); 
+% fitpars = zeros(size(fitpars));
 % fitpars(6,1:100) = 15;
 %%% <-- single rotation only
 
@@ -59,22 +59,23 @@ plotFitPars(fitpars,[],[],[],[s1 s2]);
 %% Simulate the motion artifact with pre-defined parameters
 % convert the motion parameters into a set off affine matrices:
 fitMats = euler2rmat(fitpars(4:6,:));
-fitMats(1:3,4,:) = fitpars(1:3,:); 
+fitMats(1:3,4,:) = fitpars(1:3,:);
 % set some things for the recon function:
 alignDim = 2; alignIndices = 1:nT; Hxyz = size(rawData); kspaceCentre_xyz = floor(Hxyz/2)+1;
 hostVoxDim_mm = [1 1 1];
 % use the recon function just to extract the nufft 'object' st:
 [~, st] = applyRetroMC_nufft(rawData,fitMats,alignDim,alignIndices,11,hostVoxDim_mm,Hxyz,kspaceCentre_xyz,-1);
 % and use the nufft rather than the nufft_adj function to simulate the rotations:
-image_simRotOnly = ifft3s(reshape(nufft(ifft3s(rawData),st),size(rawData)));        
+image_simRotOnly = ifft3s(reshape(nufft(ifft3s(rawData),st),size(rawData)));
 % then apply just the translations:
 [~,~,image_simMotion] = applyRetroMC_nufft(fft3s(image_simRotOnly),fitMats,alignDim,alignIndices,11,hostVoxDim_mm,Hxyz,kspaceCentre_xyz,-1);
 
 image_simMotion = ifft3s(image_simMotion);
 image_simMotion = image_simMotion / percentile(abs(image_simMotion),95);
 
-% Load both images in a 3D viewer:
-SliceBrowser2(cat(4,abs(image_original),abs(image_simMotion)),[0 1.5],{'Original image','Simulated motion'})
-set(gcf,'Name','Original image (1) vs Simulated Motion (2)')
-
+if show==1
+    % Load both images in a 3D viewer:
+    SliceBrowser2(cat(4,abs(image_original),abs(image_simMotion)),[0 1.5],{'Original image','Simulated motion'})
+    set(gcf,'Name','Original image (1) vs Simulated Motion (2)')
+end
 end
