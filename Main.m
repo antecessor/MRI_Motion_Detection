@@ -15,4 +15,8 @@ for i=1:numel(I_person)
     disp(['Person number ' num2str(i) ' is done...'])
 end
 %%
-imshowDifferentMotion(I_person,image_simMotion,1,40)
+% imshowDifferentMotion(I_person,image_simMotion,1,40)
+%% non:0 slight:1 mild:2 moderate:3 severe:4 
+Strategy1_FeatureSelectionMachineLearning
+%%
+

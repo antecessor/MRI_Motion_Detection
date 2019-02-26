@@ -1,0 +1,18 @@
+function imshowDifferentMotion(I_person,image_simMotion,personNumber,slice)
+figure
+subplot(1,5,1)
+imshow(I_person{personNumber}(:,:,slice),[])
+xlabel('original image')
+subplot(1,5,2)
+imshow(abs(image_simMotion{personNumber,1}(:,:,slice)),[])
+xlabel('slight motion')
+subplot(1,5,3)
+imshow(abs(image_simMotion{personNumber,2}(:,:,slice)),[])
+xlabel('mild motion')
+subplot(1,5,4)
+imshow(abs(image_simMotion{personNumber,3}(:,:,slice)),[])
+xlabel('moderate motion')
+subplot(1,5,5)
+imshow(abs(image_simMotion{personNumber,4}(:,:,slice)),[])
+xlabel('severe motion')
+end
