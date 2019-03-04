@@ -20,10 +20,26 @@ for i=1:numel(I_person)
     end
     disp(['Person number ' num2str(i) ' is done...'])
 end
-%%
+%% Shuffle
 [Fnew,Targetnew]=shuffle(F,Target);
+% %% Normalization
+% Normalize=@(x) (x-min(x))/(max(x)-min(x));
+% for i=1:size(F,2)
+%     Fnew(:,i)=Normalize(F(:,i));
+% end
 %%
+tic
+validationPercent=.30;
+numValidation=round(size(Fnew,1)*validationPercent);
+FVal=Fnew(end-numValidation:end,:);
+TVal=Targetnew(end-numValidation:end);
+FTrainTest=Fnew(1:end-numValidation-1,:);
+TTrainTest=Targetnew(1:end-numValidation-1);
+
 k=10;
-fun=@(Train,Target) fitcknn(Fnew,Targetnew);
-[Out,err,cvMean,cvStd,Mdl,Res]=KfoldClass(k,Fnew,Targetnew,fun);
-cvMean
+fun=@(Train,Target) fitctree(Train,Target);
+[Out,err,cvMean,cvStd,Mdl,Res,Val]=KfoldClass(k,FTrainTest,TTrainTest+1,FVal,TVal+1,fun);
+Val
+
+Confusionmatrix = confusionmat(TVal+1,Val.out)
+toc

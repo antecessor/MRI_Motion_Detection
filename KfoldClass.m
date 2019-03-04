@@ -1,4 +1,4 @@
-function [Out,err,cvMean,cvStd,Mdl,Res]=KfoldClass(k,Features_new,Target,fun)
+function [Out,err,cvMean,cvStd,Mdl,Res,Val]=KfoldClass(k,Features_new,Target,FVal,TVal,fun)
 
 Mdl={};
 
@@ -15,9 +15,11 @@ for i = 1:CVO.NumTestSets
 %     MdlTree{i} = fitrtree(Features_new(trIdx,:),Target(trIdx));
     ytrain = predict(Mdl{i},Features_new(trIdx,:));
     ytest = predict(Mdl{i},Features_new(teIdx,:));
+    yvalid(:,i) = predict(Mdl{i},FVal);
     Out(teIdx)=ytest;
    [Res(i).Accuracy,Res(i).Precison,Res(i).Recall,Res(i).FSCORE,Res(i).Specificity,Res(i).train,Res(i).test]=multiclassparam(Target(trIdx),Target(teIdx),ytrain,ytest);
-    Acc=[Acc Res(i).Accuracy.test];
+
+   Acc=[Acc Res(i).Accuracy.test];
     Pre=[Pre  Res(i).Precison.test];
     Recall=[Recall Res(i).Recall.test];
     Fscore=[Fscore Res(i).FSCORE.test];
@@ -38,6 +40,8 @@ cvStd.Recall=std(Recall);
 cvStd.Sp=std(Sp);
 cvStd.Fscore=std(Fscore);
 
-
-
+%% Validation
+[Accuracy,Precison,Recall,FSCORE,Specificity,~,test]=multiclassparam(TVal,TVal,mode(yvalid')',mode(yvalid')');
+Val.Accuracy=Accuracy.test; Val.Precison=Precison.test; Val.Recall=Recall.test; Val.FSCORE=FSCORE.test; Val.Specificity=Specificity.test; Val.test=test;
+Val.out=mode(yvalid')';
 end

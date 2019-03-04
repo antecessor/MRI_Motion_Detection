@@ -1,7 +1,7 @@
 clc
 clear
 run('addToolbox.m') 
-%% Load Data
+% %% Load Data
 I_person=LoadData_Slices();
 %% Add motion artifact
 noiseBasePars ={1.^[0:8],2.*[0:8],3.*[0:8],4.*[0:8]}; %% minimal,mild,moderate,severe motion
@@ -14,8 +14,12 @@ for i=1:numel(I_person)
     end
     disp(['Person number ' num2str(i) ' is done...'])
 end
-%%
-% imshowDifferentMotion(I_person,image_simMotion,1,40)
+%% load images that are saved
+% load('simulatedImages.mat')
+%% showing add motion artifact
+m=1;
+addMotionArtifactToMRI(I_person{3},noiseBasePars{m},maxDisp(m),maxRot(m),1);
+ % imshowDifferentMotion(I_person,image_simMotion,1,40)
 %% non:0 slight:1 mild:2 moderate:3 severe:4 
 Strategy1_FeatureSelectionMachineLearning
 %%

@@ -7,7 +7,7 @@ rawData = fft3s(image_original);
 nT = size(rawData,2);
 
 %% Motion artifact Parameter
-rng(1); % Set the seed for the random number generator to be able to create reproducible motion patterns
+% rng(1); % Set the seed for the random number generator to be able to create reproducible motion patterns
 % for Perlin noise, this determines the weights between different harmonics of noise
 % noiseBasePars = 1; %% *really* rough motion
 % noiseBasePars = 5;  %% quite 'rough' motion
