@@ -26,6 +26,6 @@ load('simulatedImages.mat')
 % addMotionArtifactToMRI(I_person{3},noiseBasePars{m},maxDisp(m),maxRot(m),1);
 % imshowDifferentMotion(I_person,image_simMotion,1,40)
 %% non:0 slight:1 mild:2 moderate:3 severe:4 
-% Strategy1_FeatureSelectionMachineLearning
+Strategy1_FeatureSelectionMachineLearning
 %% non:0 slight:1 mild:2 moderate:3 severe:4 
 Strategy2_DeepLearning

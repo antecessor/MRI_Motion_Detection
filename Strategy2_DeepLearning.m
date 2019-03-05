@@ -15,7 +15,7 @@ end
 for i=1:size(image_simMotion,1)
     for j=1:size(image_simMotion,2)
         for n=1:size(image_simMotion{i,j},3)
-            imwrite(abs(image_simMotion{i,j}(:,:,n)),[originalFileLocation '/M' num2str(j) '/'  num2str(i) '_' num2str(n) '.png']);      
+            imwrite(uint8(image_simMotion{i,j}(:,:,n)),[originalFileLocation '/M' num2str(j) '/'  num2str(i) '_' num2str(n) '.png']);      
         end
     end
     disp(['Person number ' num2str(i) ' is done...'])
