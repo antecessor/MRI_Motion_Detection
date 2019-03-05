@@ -78,4 +78,5 @@ if show==1
     SliceBrowser2(cat(4,abs(image_original),abs(image_simMotion)),[0 1.5],{'Original image','Simulated motion'})
     set(gcf,'Name','Original image (1) vs Simulated Motion (2)')
 end
+
 end
