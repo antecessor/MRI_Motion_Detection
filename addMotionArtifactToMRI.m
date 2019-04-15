@@ -20,12 +20,12 @@ suddenFrequency = 5; % number of sudden movements
 suddenMagnitude = [3 3]; % first is translations, second is rotations
 % general background noise movement:
 fitpars = zeros(6,nT);
-fitpars(1,:) = maxDisp*(perlinNoise1D(nT,noiseBasePars).'-.5);
-fitpars(2,:) = maxDisp*(perlinNoise1D(nT,noiseBasePars).'-.5);
-fitpars(3,:) = maxDisp*(perlinNoise1D(nT,noiseBasePars).'-.5);
-fitpars(4,:) = maxRot*(perlinNoise1D(nT,noiseBasePars).'-.5);
-fitpars(5,:) = maxRot*(perlinNoise1D(nT,noiseBasePars).'-.5);
-fitpars(6,:) = maxRot*(perlinNoise1D(nT,noiseBasePars).'-.5);
+fitpars(1,:) = maxDisp*(perlinNoise1D(nT,noiseBasePars).'-.5)+rand;
+fitpars(2,:) = maxDisp*(perlinNoise1D(nT,noiseBasePars).'-.5)+rand;
+fitpars(3,:) = maxDisp*(perlinNoise1D(nT,noiseBasePars).'-.5)+rand;
+fitpars(4,:) = maxRot*(perlinNoise1D(nT,noiseBasePars).'-.5)+rand;
+fitpars(5,:) = maxRot*(perlinNoise1D(nT,noiseBasePars).'-.5)+rand;
+fitpars(6,:) = maxRot*(perlinNoise1D(nT,noiseBasePars).'-.5)+rand;
 
 % add in swallowing-like movements - just to z direction and pitch:
 swallowTraceBase = exp(-linspace(0,1e2,nT));
