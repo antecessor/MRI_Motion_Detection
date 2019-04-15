@@ -2,7 +2,7 @@ function [Out,err,cvMean,cvStd,Mdl,Res,Val]=KfoldClass(k,Features_new,Target,FVa
 
 Mdl={};
 
-CVO = cvpartition(Target,'k',k);
+CVO = cvpartition(Target,'k',k,'Stratify',true);
 err = zeros(CVO.NumTestSets,1);
 Out=zeros(size(Target,1),1);
 
