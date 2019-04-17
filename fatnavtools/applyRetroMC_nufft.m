@@ -157,15 +157,15 @@ for iT = 1:Nt
     newVec = (alignMats(1:3,1:3,iT) * [kx(iLine) ky(iLine) kz(iLine)].' ).';
     nkx(iLine) = newVec(:,1); nky(iLine) = newVec(:,2); nkz(iLine) = newVec(:,3);
     newData(iLine) = newData(iLine).*exp(-1i*pi*( alignMats(1,4,iT)*kx(iLine) + alignMats(2,4,iT)*ky(iLine) + alignMats(3,4,iT)*kz(iLine)));
-    if Nt < 1000
-        fprintf('.');
-    else
-        if mod(iT,500)==0
-            fprintf('.');
-        end
-    end
+%     if Nt < 1000
+%         fprintf('.');
+%     else
+%         if mod(iT,500)==0
+%             fprintf('.');
+%         end
+%     end
 end
-fprintf('\n');
+% fprintf('\n');
 
 
 crds = [nkx(:).'*dataDims_mm(1); nky(:).'*dataDims_mm(2); nkz(:).'*dataDims_mm(3)];

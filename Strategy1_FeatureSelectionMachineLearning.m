@@ -22,11 +22,11 @@ for i=1:numel(I_person)
 end
 %% Shuffle
 [Fnew,Targetnew]=shuffle(F,Target);
-% %% Normalization
-% Normalize=@(x) (x-min(x))/(max(x)-min(x));
-% for i=1:size(F,2)
-%     Fnew(:,i)=Normalize(F(:,i));
-% end
+%% Normalization
+Normalize=@(x) (x-min(x))/(max(x)-min(x));
+for i=1:size(Fnew,2)
+    Fnew(:,i)=Normalize(Fnew(:,i));
+end
 %%
 tic
 validationPercent=.30;

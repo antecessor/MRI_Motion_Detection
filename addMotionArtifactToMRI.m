@@ -14,10 +14,10 @@ nT = size(rawData,2);
 % noiseBasePars = 3.^[0:8]; %% smoother motion
 % maxDisp = 4; % magnitude of general background noise movement - translations
 % maxRot = 4; % magnitude of rotations
-swallowFrequency = 3; % number of swallowing events in scan
-swallowMagnitude = [3 3]; % first is translations, second is rotations
-suddenFrequency = 5; % number of sudden movements
-suddenMagnitude = [3 3]; % first is translations, second is rotations
+swallowFrequency = 2; % number of swallowing events in scan
+swallowMagnitude = [2 2]; % first is translations, second is rotations
+suddenFrequency = 2; % number of sudden movements
+suddenMagnitude = [2 2]; % first is translations, second is rotations
 % general background noise movement:
 fitpars = zeros(6,nT);
 fitpars(1,:) = maxDisp*(perlinNoise1D(nT,noiseBasePars).'-.5)+rand;

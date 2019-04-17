@@ -7,7 +7,7 @@ run('addToolbox.m')
 %% Machine Learning
 Strategy1_FeatureSelectionMachineLearning_RealData
 %% Deep learning
-Strategy2_DeepLearning
-%% Fuzzy
-% Strategy3_FuzzyAnfisDeepLearning
-% Strategy3_FuzzyAnfisGA
+% Strategy2_DeepLearning_RealData
+%% Using Trained MRI by Synthethic to use in Real data
+% Strategy4_MachineLearningSynthethicTestRealData;
+% Strategy5_MachineLearningSynthethicTestRealDataByPSO;
